@@ -1,0 +1,24 @@
+---
+- name: Wait for SSH on the provisioned instances
+  hosts: build:stage
+  gather_facts: false
+  tasks:
+    - name: Wait for SSH to become available
+      ansible.builtin.wait_for_connection:
+        timeout: 600
+        delay: 5
+
+    - name: Gather facts after the connection is ready
+      ansible.builtin.setup:
+
+- name: Build the Java application image on the build node
+  hosts: build
+  become: true
+  roles:
+    - builder
+
+- name: Deploy the application container to the stage node
+  hosts: stage
+  become: true
+  roles:
+    - deployer

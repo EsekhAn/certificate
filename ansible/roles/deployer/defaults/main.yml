@@ -1,0 +1,6 @@
+---
+app_dir: /opt/app
+app_port: 8080
+app_container_name: devops-cert-app
+app_image: "cr.yandex/<registry-id>/hello:latest"
+registry_host: "cr.yandex"

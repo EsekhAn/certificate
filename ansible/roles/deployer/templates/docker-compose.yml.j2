@@ -1,0 +1,13 @@
+services:
+  app:
+    image: {{ app_image }}
+    container_name: {{ app_container_name }}
+    ports:
+      - "{{ app_port }}:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bash", "-c", "cat < /dev/null > /dev/tcp/127.0.0.1/8080"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
